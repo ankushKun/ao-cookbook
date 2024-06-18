@@ -1,3 +1,25 @@
+<script setup>
+import {createElement } from "react"
+import {createRoot} from "react-dom"
+import {onMounted} from "vue"
+import {CodeCell} from "@betteridea/codecell"
+
+const codes = {
+  "step-3": `Send({ Target = "process ID", Data = "Hello World!" })`,
+  "step-4": `Morpheus = "wu_tAUDUveetQZpcN8UxHt51d9dyUkI4Z-MfQV8LnUU"`,
+  "step-5": `Send({ Target = Morpheus, Data = "Morpheus?" })`,
+  "step-6": `#Inbox`,
+  "step-6-1": `Inbox[#Inbox].Data`,
+  "step-7": `Send({ Target = Morpheus, Data = "Code: rabbithole", Action = "Unlock" })`
+}
+
+onMounted(() => {
+  Object.keys(codes).forEach((key) => {
+    createRoot(document.getElementById(key)).render(createElement(CodeCell, {cellId:key,code: codes[key], height:"150px"}))
+  })
+})
+</script>
+
 # Messaging in `ao`
 
 ## Learn how Messages gives `ao` Parallel Compute Capability
@@ -34,6 +56,8 @@ aos
 Send({ Target = "process ID", Data = "Hello World!" })
 ```
 
+<div id="step-3"></div>
+
 - **Send**: The `Send` function is globally available in the aos interactive environment.
 - **Target**: To send a message to a specific process, include a `Target` field in your message.
 - **Data**: The `Data` is the text message you want received by the receiving process. In this example, the message is "Hello World!".
@@ -51,6 +75,8 @@ Copy the process ID above and store it as a variable by running the below comman
 ```lua
 Morpheus = "ajrGnUq9x9-K1TY1MSiKwNWhNTbq7-IdtFa33T59b7s"
 ```
+
+<div id="step-4"></div>
 
 This will store the process ID as a variable called `Morpheus`, making it easier to interact with the specific process ID.
 
@@ -78,6 +104,8 @@ After obtaining Morpheus's process ID and storing it in a variable, you're ready
 ```lua
 Send({ Target = Morpheus, Data = "Morpheus?" })
 ```
+
+<div id="step-5"></div>
 
 - Your `Target` is `Morpheus` which is the variable we defined earlier using `Morpheus`'s process ID.
 - The `Data` is the message you want to send to Morpheus. In this case, it's "Morpheus?".
@@ -111,6 +139,8 @@ Inside your aos CLI, type the following command:
  #Inbox
 ```
 
+<div id="step-6"></div>
+
 If you're actively following through the tutorial, the inbox will not have many messages. However, if you've been experimenting with the aos environment, you may more than 1 message in your inbox.
 
 **Example Return:**
@@ -130,6 +160,8 @@ As we're actively looking for `Morpheus`'s response, we'll assume his message wa
 ```lua
  Inbox[#Inbox].Data
 ```
+
+<div id="step-6-1"></div>
 
 This command allows you to isolate the Data from the message and only read the contents of the data.
 
@@ -170,6 +202,8 @@ Send Morpheus a message with the tag `Action` and the value `rabbithole`.
 ```lua
 Send({ Target = Morpheus, Data = "Code: rabbithole", Action = "Unlock" })
 ```
+
+<div id="step-7"></div>
 
 **Expected Return:**
 ![Morpheus Responds 2](/messaging2.png)
