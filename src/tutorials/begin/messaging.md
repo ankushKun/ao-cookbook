@@ -6,16 +6,25 @@ import {CodeCell} from "@betteridea/codecell"
 
 const codes = {
   "step-3": `Send({ Target = "process ID", Data = "Hello World!" })`,
-  "step-4": `Morpheus = "wu_tAUDUveetQZpcN8UxHt51d9dyUkI4Z-MfQV8LnUU"`,
+  "step-4": `Morpheus = "ajrGnUq9x9-K1TY1MSiKwNWhNTbq7-IdtFa33T59b7s"`,
   "step-5": `Send({ Target = Morpheus, Data = "Morpheus?" })`,
   "step-6": `#Inbox`,
   "step-6-1": `Inbox[#Inbox].Data`,
   "step-7": `Send({ Target = Morpheus, Data = "Code: rabbithole", Action = "Unlock" })`
 }
 
+const stripAnsiCodes = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "");
+
 onMounted(() => {
   Object.keys(codes).forEach((key) => {
-    createRoot(document.getElementById(key)).render(createElement(CodeCell, {cellId:key,code: codes[key], height:"150px"}))
+    createRoot(document.getElementById(key)).render(createElement(CodeCell, {cellId:key,code: codes[key], height:"150px", onNewMessage:(e)=>{
+      console.log(e)
+      e.forEach(msg => {
+        if (msg.Output && msg.Output.print){
+          alert(stripAnsiCodes(msg.Output.data))
+        }
+      })
+    } }))
   })
 })
 </script>
