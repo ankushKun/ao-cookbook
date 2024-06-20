@@ -17,16 +17,23 @@ const stripAnsiCodes = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4
 
 onMounted(() => {
   Object.keys(codes).forEach((key) => {
-    createRoot(document.getElementById(key)).render(createElement(CodeCell, {cellId:key,code: codes[key], height:"150px", onNewMessage:(e)=>{
-      console.log(e)
-      e.forEach(msg => {
-        if (msg.Output && msg.Output.print){
-          alert(stripAnsiCodes(msg.Output.data))
-        }
+    createRoot(document.getElementById(key)).render(createElement(CodeCell, {
+            cellId:key,
+            code: codes[key],
+            nowallet: true,
+            height:"150px",
+            onNewMessage:(e)=>{
+              console.log(e)
+              e.forEach(msg => {
+                if (msg.Output && msg.Output.print){
+                  alert(stripAnsiCodes(msg.Output.data))
+                }
+              })
+            }}
+        ))
       })
-    } }))
-  })
-})
+    }
+)
 </script>
 
 # Messaging in `ao`
