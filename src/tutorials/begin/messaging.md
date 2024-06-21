@@ -3,6 +3,7 @@ import {createElement } from "react"
 import {createRoot} from "react-dom"
 import {onMounted} from "vue"
 import {CodeCell} from "@betteridea/codecell"
+// import {CodeCell} from "../../../../betteridea-dev/codecell"
 
 const codes = {
   "step-3": `Send({ Target = "process ID", Data = "Hello World!" })`,
@@ -18,18 +19,24 @@ const stripAnsiCodes = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4
 onMounted(() => {
   Object.keys(codes).forEach((key) => {
     createRoot(document.getElementById(key)).render(createElement(CodeCell, {
+            appName:"Cookbook",
             cellId:key,
             code: codes[key],
             nowallet: true,
-            height:"150px",
-            onNewMessage:(e)=>{
-              console.log(e)
-              e.forEach(msg => {
-                if (msg.Output && msg.Output.print){
-                  alert(stripAnsiCodes(msg.Output.data))
-                }
-              })
-            }}
+            height:"169px",
+            enableToasts:true,
+
+            // devMode:true
+
+            // onNewMessage:(e)=>{
+            //   console.log(e)
+            //   e.forEach(msg => {
+            //     if (msg.Output && msg.Output.print){
+            //       alert(stripAnsiCodes(msg.Output.data))
+            //     }
+            //   })
+            // }
+        }
         ))
       })
     }

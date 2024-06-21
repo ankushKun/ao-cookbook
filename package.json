@@ -14,7 +14,7 @@
     "staged": "lint-staged --allow-empty --concurrent false"
   },
   "devDependencies": {
-    "@betteridea/codecell": "^1.4.0",
+    "@betteridea/codecell": "^1.4.3",
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.2",
     "arweave": "^1.14.4",
